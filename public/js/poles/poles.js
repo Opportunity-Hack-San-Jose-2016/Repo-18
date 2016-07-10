@@ -9,27 +9,35 @@ app.controller('poleCtrl', ['$scope','$http','NgTableParams',function($scope,$ht
     $scope.codeStart=0;
     $scope.previewStart ="";
     $scope.previewEnd ="";
-    this.tableParams = new NgTableParams({}, {
-        getData: function(params) {
-            // ajax request to api
-            $http({
-                method: 'GET',
-                url: '/api/poleCodesList',
-                data:{},
-            }).then(function successCallback(response) {
-                $scope.alert = "finished";
-                return response.date;
-                // $scope.queryDrivers();
-            }, function errorCallback(response) {
-                // alert("The username or password is not correct, please try again.");
-                //$scope.alert = response.data.msg;
-            });
-            return Api.get(params.url()).$promise.then(function(data) {
-                params.total(data.inlineCount); // recal. page nav controls
-                return data.results;
-            });
+    $scope.data = [];
+    $scope.poles = [];
+    $scope.poleTable = new NgTableParams({
+        page: 1,
+        count: 10,
+        filter: { firstName: "T" }
+    }, {
+        total: $scope.poles.length,
+        getData: function ($defer, params) {
+            return $scope.poles;//.slice((params.page() - 1) * params.count(), params.page() * params.count());
+            //$defer.resolve($scope.data);
         }
     });
+    $scope.poleTable.isFiltersVisible = false;
+    $scope.queryPoleCodesList = function(){
+        console.log("querying");
+        $http({
+         method: 'post',
+         url: '/api/poles/list',
+         data:{page:1},
+         }).then(function successCallback(response) {
+         //$scope.alert = null;
+         $scope.poles = response.data;
+            $scope.poleTable.reload();
+         }, function errorCallback(response) {
+         // alert("The username or password is not correct, please try again.");
+         //$scope.alert = response.data.msg;
+         });
+    };
     $scope.generatePreview = function(){
         $scope.previewStart = $scope.codePrefix+""+$scope.formatNum($scope.codeStart,5);
         $scope.previewEnd =$scope.codePrefix+""+ $scope.formatNum($scope.codeStart + $scope.amount-1,5);
@@ -50,11 +58,12 @@ app.controller('poleCtrl', ['$scope','$http','NgTableParams',function($scope,$ht
         return num;
     };
     $scope.preGenerateCode = function(){
-        //var self = this;
-        //var data = [{name: "Moroni", age: 50} /*,*/];
-        //self.tableParams = new NgTableParams({}, { dataset: data});
-        //$scope.generateBarcodeImg();
-        $scope.generatePDFS();
+        var array = [];
+        for(var i = $scope.codeStart; i<=$scope.amount; i++){
+            array.push({"poleCode":$scope.codePrefix+ $scope.formatNum(i,5),"state":"initial"});
+        }
+        $scope.poles = array;
+        $scope.poleTable.reload();
     };
     $scope.postCreatePoleCodes = function(){
         var array = [];

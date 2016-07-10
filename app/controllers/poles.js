@@ -74,7 +74,6 @@ exports.updateApi = function (req, res) {
         ERROR.badRequest(res, err);
     });
 };
-<<<<<<< HEAD
 exports.generatePolePDFBatch = function(req,res){
     console.log("getting in");
     var poleCodes = req.body.poleCodes;
@@ -163,14 +162,14 @@ exports.generateBarcodeImg = function(code){
             // png.length           : PNG file length
             png.readUInt32BE(600);// PNG image width
             png.readUInt32BE(450);// PNG image height
-            var wstream = fs.createWriteStream("app/views/pole/barcodeImg/"+code+'.png');
+            var wstream = fs.createWriteStream("app/views/pole/barcodeImg/" + code + '.png');
             wstream.write(png);
             //wstream.write('Another line\n');
             wstream.end();
             console.log("barcode done");
         }
-=======
-
+    });
+};
 
 function doList(req) {
     log.req(req);
@@ -193,6 +192,5 @@ exports.listApi = function (req, res) {
     doList(req).then(function (result) {
         log.v('result = ', result);
         ERROR.ok(res, result);
->>>>>>> master
     });
 };

@@ -20,7 +20,7 @@
                            ng-keypress="generatePreview()" ng-blur="generatePreview()">
                 </div>
 
-                <button type="button" class="btn btn-default" ng-click="postCreatePoleCodes()">Generate</button>
+                <button type="button" class="btn btn-default" ng-click="preGenerateCode()">Generate</button>
             </form>
             <div>
                 <label>Preview:</label>
@@ -31,12 +31,12 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">Pre Generation</div>
-        <table ng-table="vm.tableParams" class="table" show-filter="true" elem-ready="">
-            <tr ng-repeat="user in $data">
-                <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
-                    {{user.name}}</td>
-                <td title="'Age'" filter="{ age: 'number'}" sortable="'age'">
-                    {{user.age}}</td>
+        <table ng-table="poleTable" class="table" show-filter="false" elem-ready="">
+            <tr ng-repeat="item in $data">
+                <td title="'PoleCode'" filter="{ poleCode: 'text'}" sortable="'poleCode'">
+                    {{item.poleCode}}</td>
+                <td title="'State'" filter="{ state: 'text'}" sortable="'state'">
+                    {{item.state}}</td>
             </tr>
         </table>
     </div>

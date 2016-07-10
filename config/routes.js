@@ -127,7 +127,7 @@ module.exports = function (app, passport) {
     // localhost:3000/api/organizations/list?page=1
     app.post('/api/organizations/list', organizations.listApi);
 
-<<<<<<< HEAD
+
     //poles(access points) Ming
     app.get('/poles/generate', function (req, res) {
       res.render('pole/generate_code.html', temp.adminMainTemp("Generation", {}, {}));
@@ -140,9 +140,9 @@ module.exports = function (app, passport) {
     app.post('/api/generatePoleCodes',poles.generatePolePDFBatch);
     app.post('/api/batchCreatePoleCodes',poles.doCreate);
     app.post('/api/poleCodesList',poles.doCreate);
-=======
+
     app.get('/api/statistics/summary', statistics.getSummary);
->>>>>>> master
+
 
     /**
      * Error handling
