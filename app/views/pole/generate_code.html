@@ -26,7 +26,7 @@
                 <label>Preview:</label>
                 <p>{{previewStart}}-{{previewEnd}}</p>
             </div>
-{{poleTest}}
+
         </div>
     </div>
     <div class="panel panel-default">
@@ -40,7 +40,12 @@
             </tr>
         </table>
     </div>
-    {{test}}
-    this is content
-    <p>{{dashboardTest}}</p>
+<br>
+    <img src="/images/loader.gif" ng-show="showLoader"/>
+    <div class="wrapper" ng-hide="showLoader">
+        <span class="group-btn">
+        <button type="button" class="btn btn-default" onclick="window.open('/pdf/output.pdf','_blank');" >Download PDF</button>
+        </span>
+    </div>
+
 </div>
