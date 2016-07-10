@@ -100,6 +100,9 @@ function doSearch(req) {
                 })
             }
         });
+        available.sort(function (a, b) {
+            return a.distance - b.distance;
+        });
         return available;
     })
 }
