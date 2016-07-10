@@ -28,11 +28,11 @@ const fail = {
  */
 
 module.exports = function (app, passport) {
-  const pauth = passport.authenticate.bind(passport);
-  // UI test Ming
-  app.get('/test',function(req,res){
-    res.render('dashboard/index.html',temp.adminMainTemp("Dashboard",{},{}));
-
+    const pauth = passport.authenticate.bind(passport);
+    // UI test Ming
+    app.get('/test', function (req, res) {
+        res.render('dashboard/index.html', temp.adminMainTemp("Dashboard", {}, {}));
+    });
     // user routes
     app.get('/login', users.login);
     app.get('/signup', users.signup);
