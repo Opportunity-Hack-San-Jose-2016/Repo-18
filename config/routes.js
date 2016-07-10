@@ -9,6 +9,7 @@ const articles = require('../app/controllers/articles');
 const comments = require('../app/controllers/comments');
 const tags = require('../app/controllers/tags');
 const auth = require('./middlewares/authorization');
+const temp = require('../app/utils/PageTemplate');
 
 /**
  * Route middlewares
@@ -27,7 +28,14 @@ const fail = {
 
 module.exports = function (app, passport) {
   const pauth = passport.authenticate.bind(passport);
+  // UI test Ming
+  app.get('/test',function(req,res){
+    res.render('dashboard/index.html',temp.adminMainTemp("Dashboard",{},{}));
 
+    // res.render('driver_truck/createDriver.html',temp.adminMainTemp("Create A Driver",{user:req.session.user}));
+    //res.render('dashboard/index.html',temp.adminMainTemp("Dashboard",{},{}));
+    //return {layout:"template/main_template.html", title:title,user:user, data:data}
+  });
   // user routes
   app.get('/login', users.login);
   app.get('/signup', users.signup);
