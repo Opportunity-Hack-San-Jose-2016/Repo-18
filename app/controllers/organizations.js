@@ -66,6 +66,13 @@ exports.listApi = function (req, res) {
     });
 };
 
+function doSearch(req) {
+    
+}
+
+exports.searchNearby = function (req, res) {
+
+};
 
 function _calculateAge(birthday) {
     var ageDifMs = Date.now() - birthday.getTime();
