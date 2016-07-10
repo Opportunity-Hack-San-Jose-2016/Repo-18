@@ -7,6 +7,7 @@ var values = {
     COLLECTION_REQUEST: 'request',
     COLLECTION_POLE: 'pole',
     COLLECTION_REFUGEE: 'refugee',
+    COLLECTION_ORGANIZATION: 'organization',
 
     REQ_STATE_WAITING: 'waiting',
     REQ_STATE_ONGOING: 'ongoing',

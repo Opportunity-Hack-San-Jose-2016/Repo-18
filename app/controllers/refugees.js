@@ -13,13 +13,16 @@ function doCreateOrUpdate(req) {
     form.lastModify = new Date();
     if (form.unid) {
         form.unid = form.unid.toLowerCase().trim();
+    } else {
+        return Promise.reject(ERROR.invalidParam('unid'));
     }
     log.v('form is ', form);
     return mongo.get({
         unid: form.unid,
     }, CONST.COLLECTION_REFUGEE).spread(function (request) {
         if (request) {
-            form._id = request._id;
+            util.setProperties(request, form);
+            form = request;
         }
         return mongo.put(form, CONST.COLLECTION_REFUGEE);
     });
@@ -41,11 +44,13 @@ function doList(req) {
     log.req(req);
     var form = util.copy(req.body, ["unid", "name", "firstName", "middleName", "lastName", "address", "phoneNum",
         "familyId", "birthday", "gender", "race", "nationality", "disabled", "lastContactTime", "lastContactLocation"]);
-    try {
-        var date = Date.parse(form.birthday);
-        form.age = _calculateAge(date);
-    } catch (err) {
-        return Promise.reject(ERROR.invalidParam('date'));
+    if (form.birthday) {
+        try {
+            var date = Date.parse(form.birthday);
+            form.age = _calculateAge(date);
+        } catch (err) {
+            return Promise.reject(ERROR.invalidParam('date'));
+        }
     }
 
     var where = mongo.toFilter(form);

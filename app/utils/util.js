@@ -268,6 +268,8 @@ var util = {
             return value;
         });
         return result;
+    }, asArray: function (obj) {
+        return Array.isArray(obj) ? obj : [obj];
     }
 };
 
