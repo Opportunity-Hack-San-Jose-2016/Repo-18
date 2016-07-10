@@ -138,14 +138,17 @@ module.exports = function (app, passport) {
 
     //poles(access points) Ming
     app.get('/poles/generate', function (req, res) {
-      res.render('pole/generate_code.html', temp.adminMainTemp("Generation", {}, {}));
+        res.render('pole/generate_code.html', temp.adminMainTemp("Generation", {}, {}));
+    });
+    app.get('/poles/wholeList', function (req, res) {
+        res.render('pole/poleList.html', temp.adminMainTemp("Generation", {}, {}));
     });
     app.get('/poles/generateBarcode', poles.generateBarcodeImg);
     app.get('/poles/generatePolePDFBatch',poles.generatePolePDFBatch);
     app.get('/poles/posterTemplate',function(req,res){
         res.render('pole/posterTemplate.html', {layout:"template/blank.html",barcode:"SANJ95270"});
     });
-    app.post('/api/generatePoleCodes',poles.generatePolePDFBatch);
+    app.post('/api/generatePoleCodesPDF',poles.generatePolePDFBatch);
     app.post('/api/batchCreatePoleCodes',poles.doCreate);
     app.post('/api/poleCodesList',poles.doCreate);
 

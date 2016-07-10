@@ -94,16 +94,20 @@ exports.generatePolePDFBatch = function(req,res){
                 callback(0);
             },
             function (callback) {
-                console.log("begin to pdf", poleCodes);
-                var doc = new PDF();
-                for(var i =0; i<poleCodes.length;i++){
-                    doc = exports.generatePolePDF(i,doc,poleCodes[i]);
-                }
-                doc.write("output1.pdf");
-                callback(1);
+                setTimeout(function(){
+                    console.log("begin to pdf", poleCodes);
+                    var doc = new PDF();
+                    for(var i =0; i<poleCodes.length;i++){
+                        doc = exports.generatePolePDF(i,doc,poleCodes[i]);
+                    }
+                    doc.write("public/pdf/output.pdf");
+                    callback(1);
+                },300);
+
             }
         ],
         function (err, results) {
+            console.log("results",results);
             if (err) {
                 console.log(err);
                 // if(callback)callback("*E init truck error\n");
@@ -113,6 +117,7 @@ exports.generatePolePDFBatch = function(req,res){
                 //if(callback)callback();
                 res.send("done");
             }
+            res.send("done");
         });
 
 };

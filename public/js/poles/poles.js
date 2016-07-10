@@ -11,6 +11,34 @@ app.controller('poleCtrl', ['$scope','$http','NgTableParams',function($scope,$ht
     $scope.previewEnd ="";
     $scope.data = [];
     $scope.poles = [];
+    $scope.wholePoles = [];
+    $scope.showLoader = false;
+    $scope.poleWholeTable = new NgTableParams({
+        page: 1,
+        count: 10,
+        filter: { firstName: "T" }
+    }, {
+        total: $scope.poles.length,
+        getData: function ($defer, params) {
+            return $scope.wholePoles;//.slice((params.page() - 1) * params.count(), params.page() * params.count());
+            //$defer.resolve($scope.data);
+        }
+    });
+    $scope.queryWholePoleTable = function(){
+        console.log("querying whole poles");
+        $http({
+            method: 'post',
+            url: '/api/poles/list',
+            data:{page:1},
+        }).then(function successCallback(response) {
+            //$scope.alert = null;
+            $scope.wholePoles = response.data;
+            $scope.poleWholeTable.reload();
+        }, function errorCallback(response) {
+            // alert("The username or password is not correct, please try again.");
+            //$scope.alert = response.data.msg;
+        });
+    };
     $scope.poleTable = new NgTableParams({
         page: 1,
         count: 10,
@@ -64,6 +92,10 @@ app.controller('poleCtrl', ['$scope','$http','NgTableParams',function($scope,$ht
         }
         $scope.poles = array;
         $scope.poleTable.reload();
+        if(array.length>0) {
+            $scope.showLoader = true;
+            $scope.generatePDFS();
+        }
     };
     $scope.postCreatePoleCodes = function(){
         var array = [];
@@ -86,18 +118,18 @@ app.controller('poleCtrl', ['$scope','$http','NgTableParams',function($scope,$ht
         
     };
     $scope.generatePDFS = function(){
-        var poleCodes = [];
-        poleCodes.push("SAN12342");
-        poleCodes.push("SAN12346");
-        poleCodes.push("SAN12348");
 
+        var array = [];
+        for(var i = $scope.codeStart; i<=$scope.amount; i++){
+            array.push($scope.codePrefix+ $scope.formatNum(i,5))
+        }
         console.log("poleCodes","poleCodes");
         $http({
             method: 'POST',
-            url: '/api/generatePoleCodes',
-            data:{poleCodes:poleCodes},
+            url: '/api/generatePoleCodesPDF',
+            data:{poleCodes:array},
         }).then(function successCallback(response) {
-            $scope.alert = "finished";
+            $scope.showLoader = false;
             // $scope.queryDrivers();
         }, function errorCallback(response) {
             // alert("The username or password is not correct, please try again.");
