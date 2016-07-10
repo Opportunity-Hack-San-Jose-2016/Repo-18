@@ -10,7 +10,7 @@ refugee.controller('refugeeServiceCtrl', ['$scope','$http', 'NgTableParams', fun
         count: 10,
         filter: { firstName: "T" }
     }, {
-        total: $scope.poles.length,
+        total: $scope.orgs.length,
         getData: function ($defer, params) {
             return $scope.orgs;//.slice((params.page() - 1) * params.count(), params.page() * params.count());
             //$defer.resolve($scope.data);
