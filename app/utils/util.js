@@ -136,6 +136,16 @@ var util = {
             return obj;
         }
         var copy = {};
+
+        if (Array.isArray(fields)) {
+            fields.forEach(function (attr) {
+                if (typeof obj[attr] != 'function' && typeof obj[attr] != typeof undefined) {
+                    copy[attr] = obj[attr];
+                }
+            });
+            return copy;
+        }
+
         var whiteList = false;
         var blackList = false;
         for (var attr in fields) {
