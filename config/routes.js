@@ -46,6 +46,9 @@ module.exports = function (app, passport) {
     app.get('/refugee', function (req, res) {
         res.render('dashboard/refugee.html', temp.adminMainTemp("Dashboard", {}, {}));
     });
+    app.get('/organization', function (req, res) {
+        res.render('dashboard/organization.html', temp.adminMainTemp("Dashboard", {}, {}));
+    });
     app.get('/selfupdate',function(req,res){
         res.render('refugee/selfUpdate.html',temp.refugeeMainTemp())
     });

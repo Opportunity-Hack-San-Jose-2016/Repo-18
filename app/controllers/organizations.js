@@ -4,6 +4,16 @@ const util = require('../utils/util');
 const CONST = require('../values/constants');
 const ERROR = require('../values/error');
 const mongo = require('../utils/mongo-util');
+const NodeGeocoder = require('node-geocoder');
+var geocoder = NodeGeocoder(options);
+var Promise = require('bluebird');
+
+var options = {
+    provider: 'google',
+    httpAdapter: 'https', // Default
+    apiKey: 'AIzaSyAsEgMf-7pMCY4ZnLyAYgX1nNL-7h0k23E', // for Mapquest, OpenCage, Google Premier
+    formatter: null         // 'gpx', 'string', ...
+};
 
 function doCreateOrUpdate(req) {
     log.req(req);
@@ -13,22 +23,41 @@ function doCreateOrUpdate(req) {
     form.services = util.asArray(form.services);
     form.services.sort();
     form.locations = util.asArray(form.locations);
-    form.locations.sort();
-    log.v('form is ', form);
-
-    if (form._id) {
-        return mongo.get({
-            _id: form._id
-        }, CONST.COLLECTION_ORGANIZATION).spread(function (request) {
-            if (request) {
-                util.setProperties(request, form);
-                form = request;
-            }
-            return mongo.put(form, CONST.COLLECTION_ORGANIZATION);
+    var locationDetails = [];
+    return Promise.each(form.locations, function (location) {
+        if (!location) {
+            return Promise.resolve();
+        }
+        return geocoder.geocode(location).spread(function (info) {
+            log.v('info = ', info);
+            info = info || {};
+            var o = {};
+            o.lat = info.latitude;
+            o.lng = info.longitude;
+            o.country = info.country;
+            o.city = info.city;
+            o.address = location;
+            locationDetails.push(o);
         });
-    } else {
-        return mongo.put(form, CONST.COLLECTION_ORGANIZATION);
-    }
+    }).then(function () {
+        log.v('locationDetails = ', locationDetails);
+        form.locations = locationDetails;
+    }).then(function () {
+        log.v('form is ', form);
+        if (form._id) {
+            return mongo.get({
+                _id: form._id
+            }, CONST.COLLECTION_ORGANIZATION).spread(function (request) {
+                if (request) {
+                    util.setProperties(request, form);
+                    form = request;
+                }
+                return mongo.put(form, CONST.COLLECTION_ORGANIZATION);
+            });
+        } else {
+            return mongo.put(form, CONST.COLLECTION_ORGANIZATION);
+        }
+    });
 }
 
 exports.create = function (req, res) {
