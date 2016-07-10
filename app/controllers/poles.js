@@ -7,18 +7,40 @@ const mongo = require('../utils/mongo-util');
 const bwipjs = require('bwip-js');
 const fs = require('fs');
 const PDF = require('pdfkit');
+const async = require('async');
 // const pdf = require('html-pdf');
 // const path = require("path");
 
-function doCreate(req) {
+exports.seartch = function (req){
+    
+};
+
+exports.doCreate = function (req) {
     log.req(req);
+    var poleCodes = req.body.poleCodes;
+    var array = [];
+    for(var i = 0; i < poleCodes.length; i++){
+        array.push({
+            "poleCode":""+poleCodes[i],
+            "state":""+CONST.POLE_STATE_INITIAL
+        })
+    }
     // generate pole code here
+    var db = require('../utils/mongodb'),
+        test = require('assert');
+        // Get the collection
+        var col = db.collection(CONST.COLLECTION_POLE);
+        col.insertMany(array).then(function(r) {
+            test.equal(array.length, r.insertedCount);
+            // Finish up test
+            db.close();
+        });
 }
 
 function doUpdate(req) {
     log.req(req);
     // validate
-    var form = util.copy(req.body, {poleCode: 1, lat: 1, long: 1, state: 1});
+    var form = util.copy(req.body, ["poleCode", "lat", "long", "state", "address", "placeName"]);
     form.date = new Date();
     if (form.poleCode) {
         form.poleCode = form.poleCode.toLowerCase().trim();
@@ -29,7 +51,8 @@ function doUpdate(req) {
         poleCode: form.poleCode
     }, CONST.COLLECTION_POLE).spread(function (pole) {
         if (!pole) {
-            return Promise.rejected(ERROR.invalidParam('poleCode'));
+            // return Promise.rejected(ERROR.invalidParam('poleCode'));
+            pole = {};
         }
         util.setProperties(pole, form);
         return mongo.put(pole, CONST.COLLECTION_POLE);
@@ -52,24 +75,38 @@ exports.updateApi = function (req, res) {
     });
 };
 exports.generatePolePDFBatch = function(req,res){
-    var poleCodes = req.body.get("poleCodes");
+    console.log("getting in");
+    var poleCodes = req.body.poleCodes;
+    console.log(typeof poleCodes);
+    console.log("1:",poleCodes[1]);
+    //poleCodes = poleCodes.split(",");
     console.log("poleCodes",poleCodes);
+
+    //------
     async.series([
-            function(poleCodes){
-                exports.generateBarcodeImgBatch(poleCodes);
-                return 0;
+            function (callback) {
+                console.log("begin to png 1", poleCodes);
+                // exports.generateBarcodeImgBatch(poleCodes);
+                for(var i= 0; i<poleCodes.length;i++){
+                    console.log("poleCodes=>",poleCodes[i]);
+                    exports.generateBarcodeImg(poleCodes[i]);
+                };
+                callback(0);
             },
-            function(poleCodes){
+            function (callback) {
+                console.log("begin to pdf", poleCodes);
                 var doc = new PDF();
-                doc = exports.generatePolePDF();
+                for(var i =0; i<poleCodes.length;i++){
+                    doc = exports.generatePolePDF(i,doc,poleCodes[i]);
+                }
                 doc.write("output1.pdf");
-                return 0;
+                callback(1);
             }
         ],
-        function(err, results){
-            if(err){
+        function (err, results) {
+            if (err) {
                 console.log(err);
-               // if(callback)callback("*E init truck error\n");
+                // if(callback)callback("*E init truck error\n");
             }
             else {
                 console.log("^_^: Init truck done!\n");
@@ -79,7 +116,10 @@ exports.generatePolePDFBatch = function(req,res){
         });
 
 };
-exports.generatePolePDF = function(doc,poleCode){
+exports.generatePolePDF = function(index,doc,poleCode){
+    if(index != 0) {
+        doc.addPage();
+    }
     doc.fontSize(48);
     doc.text("HELP IS AROUND",100,100);
     doc.image('app/views/pole/barcodeImg/'+poleCode+'.png', 100, 180,{width: 400, height: 180});
@@ -90,17 +130,19 @@ exports.generatePolePDF = function(doc,poleCode){
              "include the code above, your UNID, and your\n" +
              "need, like the example below:",100,450);
     doc.fontSize(25);
-    doc.text("SANJ95270,UNIDXXXX,FOOD",100,560);
+    doc.text(poleCode+",UNIDXXXX,FOOD",100,560);
     doc.text("No worries, help is on the way!",100,620);
     //doc.end();
     return doc;
 };
-exports.generateBarcodeImgBatch = function(poleCodes){
-    poleCodes.forEach(function(item){
+exports.generateBarcodeImgBatch = function(codes){
+    console.log("codes",codes);
+    codes.forEach(function(item){
         exports.generateBarcodeImg(item);
     });
 };
 exports.generateBarcodeImg = function(code){
+    console.log("img code",code);
     bwipjs.toBuffer({
         bcid:        'code128',       // Barcode type
         text:        code,//'SANJ95270',    // Text to encode
