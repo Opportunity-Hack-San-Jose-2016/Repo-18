@@ -73,7 +73,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         });
 
         stateSwitch = (Switch) findViewById(R.id.state_btn);
-
+        findViewById(R.id.state_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stateSwitch.setChecked(!stateSwitch.isChecked());
+            }
+        });
         update = findViewById(R.id.update_btn);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
