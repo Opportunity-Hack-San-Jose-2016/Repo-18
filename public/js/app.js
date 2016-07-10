@@ -1,7 +1,7 @@
 /**
  * Created by Ming on 7/9/16.
  */
-var app = angular.module('aHandApp', ["chart.js",'uiGmapgoogle-maps']);
+var app = angular.module('aHandApp', ["chart.js"]);
 
 app.controller('commonCtrl', ['$scope','$http',function($scope,$http) {
 $scope.test="<p>this is a testing msg from commonCtrl!</p>";
