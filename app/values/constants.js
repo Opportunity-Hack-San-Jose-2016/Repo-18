@@ -15,6 +15,7 @@ var values = {
     REQ_STATE_FAILED: 'failed',
     POLE_STATE_INITIAL:'initial',
 
-    PAGE_SIZE: 24
+    PAGE_SIZE: 24,
+    MAX_SEARCHING_RANGE: 5 // search organization in 5km
 };
 module.exports = values;
