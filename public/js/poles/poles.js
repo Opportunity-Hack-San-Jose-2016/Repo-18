@@ -1,7 +1,7 @@
 /**
  * Created by Ming on 7/9/16.
  */
-// const app = require('./app.js');
+
 app.controller('poleCtrl', ['$scope','$http','NgTableParams',function($scope,$http,NgTableParams) {
     $scope.poleTest="<p>this is a testing msg from dashboardCtrl!</p>";
     $scope.codePrefix="";
@@ -33,34 +33,25 @@ app.controller('poleCtrl', ['$scope','$http','NgTableParams',function($scope,$ht
         //var self = this;
         //var data = [{name: "Moroni", age: 50} /*,*/];
         //self.tableParams = new NgTableParams({}, { dataset: data});
-        $scope.generateBarcodeImg();
+        //$scope.generateBarcodeImg();
+        $scope.generatePDFS();
     }
     $scope.generateBarcodeImg = function(){
-        bwipjs.toBuffer({
-            bcid:        'code128',       // Barcode type
-            text:        '0123456789',    // Text to encode
-            scale:       3,               // 3x scaling factor
-            height:      10,              // Bar height, in millimeters
-            includetext: true,            // Show human-readable text
-            textxalign:  'center',        // Always good to set this
-            //textfont:    'Inconsolata',   // Use your custom font
-            textsize:    13               // Font size, in points
-        }, function (err, png) {
-            if (err) {
-                // Decide how to handle the error
-                // `err` may be a string or Error object
-            } else {
-                console.log("begin to write.");
-                // `png` is a Buffer
-                // png.length           : PNG file length
-                png.readUInt32BE(16);// PNG image width
-                png.readUInt32BE(20);// PNG image height
-                var fs = require('fs');
-                var wstream = fs.createWriteStream('testP.png');
-                wstream.write(png);
-                //wstream.write('Another line\n');
-                wstream.end();
-            }
+        
+    }
+    $scope.generatePDFS = function(){
+        var poleCodes = ["SAN12345","SAN12346","SAN12347","SAN12347"];
+        console.log("poleCodes","poleCodes");
+        $http({
+            method: 'POST',
+            url: '/api/generatePoleCodes',
+            data:{poleCodes:poleCodes},
+        }).then(function successCallback(response) {
+            $scope.alert = "finished";
+            // $scope.queryDrivers();
+        }, function errorCallback(response) {
+            // alert("The username or password is not correct, please try again.");
+            $scope.alert = response.data.msg;
         });
     }
 }]);

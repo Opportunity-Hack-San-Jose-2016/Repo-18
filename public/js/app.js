@@ -1,12 +1,8 @@
 /**
  * Created by Ming on 7/9/16.
  */
-<<<<<<< HEAD
-var app = angular.module('aHandApp', ['aHandModule',"ngTable"]);
-=======
-var app = angular.module('aHandApp', ["chart.js"]);
->>>>>>> master
 
+var app = angular.module('aHandApp', ['aHandModule',"ngTable","chart.js"]);
 app.controller('commonCtrl', ['$scope','$http',function($scope,$http) {
 $scope.test="<p>this is a testing msg from commonCtrl!</p>";
 
