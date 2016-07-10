@@ -8,7 +8,7 @@ const mongo = require('../utils/mongo-util');
 function doCreateOrUpdate(req) {
     log.req(req);
     // validate
-    var form = util.copy(req.body, ["_id", "services", "locations", "contactPerson", 'number']);
+    var form = util.copy(req.body, ["_id", 'name', "services", "locations", "contactPerson", 'number']);
     form.lastModify = new Date();
     form.services = util.asArray(form.services);
     form.services.sort();
@@ -18,7 +18,7 @@ function doCreateOrUpdate(req) {
 
     if (form._id) {
         return mongo.get({
-            _id: form._id,
+            _id: form._id
         }, CONST.COLLECTION_ORGANIZATION).spread(function (request) {
             if (request) {
                 util.setProperties(request, form);
@@ -45,7 +45,7 @@ exports.createApi = function (req, res) {
 
 function doList(req) {
     log.req(req);
-    var form = util.copy(req.body, ["_id", "services", "locations", "contactPerson", 'number']);
+    var form = util.copy(req.body, ["_id", 'name', "services", "locations", "contactPerson", 'number']);
     var where = mongo.toFilter(form);
     log.v('where = ', where);
 
@@ -85,17 +85,23 @@ function deg2rad(deg) {
 }
 
 function doSearch(req) {
+    log.req(req);
     var user = req.body;
     return mongo.get({}, CONST.COLLECTION_ORGANIZATION).then(function (organizations) {
         var available = [];
         organizations.forEach(function (organization) {
             if (organization.locations) {
+                log.v('organization = ', organization);
                 organization.locations.forEach(function (location) {
-                    var distance = getDistanceFromLatLonInKm(user.lat, user.lng, location.lat, location.lng);
-                    if (distance < CONST.MAX_SEARCHING_RANGE) {
-                        organization.location = location;
-                        organization.distance = distance;
-                        available.push(organization)
+                    log.v('location = ', location);
+                    if (location && location.lat && location.lng) {
+                        var distance = getDistanceFromLatLonInKm(user.lat, user.lng, location.lat, location.lng);
+                        log.v('distance = ', distance);
+                        if (distance < CONST.MAX_SEARCHING_RANGE) {
+                            organization.location = location;
+                            organization.distance = distance;
+                            available.push(organization)
+                        }
                     }
                 })
             }
@@ -108,7 +114,7 @@ function doSearch(req) {
 }
 
 exports.searchNearbyApi = function (req, res) {
-    doSearch().then(function (organizations) {
+    doSearch(req).then(function (organizations) {
         ERROR.ok(res, organizations);
     });
 };
