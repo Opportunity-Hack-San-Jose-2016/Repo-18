@@ -1,12 +1,18 @@
 <script src="/js/poles/poles.js"></script>
 
-<div class="container-fluid" ng-controller="poleCtrl" elem-ready="queryWholePoleTable()">
-    <table ng-table="poleWholeTable" class="table" show-filter="false" elem-ready="">
+<div class="container-fluid" ng-controller="poleCtrl" >
+    <div class="panel-heading">Pre Generation</div>
+    <table ng-table="poleWholeTable" class="table" show-filter="false" elem-ready="queryWholePoleTable()">
         <tr ng-repeat="item in $data">
             <td title="'PoleCode'" filter="{ poleCode: 'text'}" sortable="'poleCode'">
                 {{item.poleCode}}</td>
+            <td title="'Location'" filter="{ location: 'text'}" sortable="'poleCode'">
+                {{item.location}}</td>
+            <td title="'Requests'"  sortable="'poleCode'">
+                10</td>
             <td title="'State'" filter="{ state: 'text'}" sortable="'state'">
                 {{item.state}}</td>
         </tr>
     </table>
+    </div>
 </div>
