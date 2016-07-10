@@ -22,10 +22,13 @@ function doCreateOrUpdate(req) {
     form.lastModify = new Date();
     form.services = util.asArray(form.services);
     form.services.sort();
+    if (typeof  form.locations == typeof '') {
+        form.locations = form.locations.match(/[^\r\n]+/g);
+    }
     form.locations = util.asArray(form.locations);
     var locationDetails = [];
     return Promise.each(form.locations, function (location) {
-        if (!location) {
+        if (!location || !location.trim()) {
             return Promise.resolve();
         }
         return geocoder.geocode(location).spread(function (info) {
