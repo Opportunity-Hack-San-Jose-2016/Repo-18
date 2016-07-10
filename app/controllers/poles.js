@@ -28,8 +28,8 @@ function doUpdate(req) {
         if (!pole) {
             return Promise.rejected(ERROR.invalidParam('poleCode'));
         }
-        form._id = pole._id;
-        return mongo.put(form, CONST.COLLECTION_POLE);
+        util.setProperties(pole, form);
+        return mongo.put(pole, CONST.COLLECTION_POLE);
     });
 }
 
