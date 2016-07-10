@@ -9,6 +9,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBMZm3zAowK90cmymHtCBr-Z7Iuarfc2LI"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -18,8 +26,11 @@
         </activity>
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            tools:replace="screenOrientation"
-            android:screenOrientation="fullSensor"/>
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation"/>
     </application>
     <uses-feature android:name="android.hardware.camera"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

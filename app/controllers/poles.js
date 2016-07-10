@@ -15,7 +15,7 @@ function doCreate(req) {
 function doUpdate(req) {
     log.req(req);
     // validate
-    var form = util.copy(req.body, {poleCode: 1, lat: 1, long: 1, state: 1});
+    var form = util.copy(req.body, ["poleCode", "lat", "long", "state", "address", "placeName"]);
     form.date = new Date();
     if (form.poleCode) {
         form.poleCode = form.poleCode.toLowerCase().trim();
@@ -26,7 +26,8 @@ function doUpdate(req) {
         poleCode: form.poleCode
     }, CONST.COLLECTION_POLE).spread(function (pole) {
         if (!pole) {
-            return Promise.rejected(ERROR.invalidParam('poleCode'));
+            // return Promise.rejected(ERROR.invalidParam('poleCode'));
+            pole = {};
         }
         util.setProperties(pole, form);
         return mongo.put(pole, CONST.COLLECTION_POLE);
