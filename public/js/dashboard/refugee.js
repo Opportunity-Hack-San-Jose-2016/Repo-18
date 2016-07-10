@@ -17,5 +17,4 @@ app.controller('submitFormController', ['$scope','$http',function($scope,$http) 
             }
         })
     }
-
 }]);
