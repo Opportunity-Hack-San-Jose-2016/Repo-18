@@ -46,12 +46,17 @@ module.exports = function (app, passport) {
     app.get('/refugee', function (req, res) {
         res.render('dashboard/refugee.html', temp.adminMainTemp("Dashboard", {}, {}));
     });
+    app.get('/organization', function (req, res) {
+        res.render('dashboard/organization.html', temp.adminMainTemp("Dashboard", {}, {}));
+    });
+    app.post('/organizations', organizations.create);
     app.get('/selfupdate',function(req,res){
         res.render('refugee/selfUpdate.html',temp.refugeeMainTemp())
     });
     app.get('/selfServiceList',function(req,res){
         res.render('refugee/servicelist.html',temp.refugeeMainTemp())
     })
+
     // user routes
     app.get('/login', users.login);
     app.get('/signup', users.signup);
