@@ -40,7 +40,16 @@ function doList(req) {
     log.req(req);
     var form = util.copy(req.body, {unid: 1, date: 1, poleCode: 1, requestType: 1, state: 1, phoneNum: 1});
     var where = mongo.toFilter(form);
-    return mongo.get(where, CONST.COLLECTION_REQUEST);
+
+    return mongo.collection(CONST.COLLECTION_REQUEST).then(function (collection) {
+        var query = collection.find(where).sort({date: -1});
+        if (req.query.page) {
+            const skip = CONST.PAGE_SIZE * (req.query.page - 1);
+            query = query.skip(skip).limit(CONST.PAGE_SIZE);
+        }
+        query = query.toArrayAsync();
+        return query;
+    });
 }
 
 exports.listApi = function (req, res) {

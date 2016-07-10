@@ -99,6 +99,8 @@ module.exports = function (app, passport) {
 
     // requests
     app.post('/api/requests', requests.createApi);
+
+    // localhost:3000/api/requests/list?page=1
     app.post('/api/requests/list', requests.listApi);
 
 

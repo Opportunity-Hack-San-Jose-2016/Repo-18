@@ -12,5 +12,7 @@ var values = {
     REQ_STATE_ONGOING: 'ongoing',
     REQ_STATE_COMPLETED: 'completed',
     REQ_STATE_FAILED: 'failed',
+
+    PAGE_SIZE: 24
 };
 module.exports = values;
