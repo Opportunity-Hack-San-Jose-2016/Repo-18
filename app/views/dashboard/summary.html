@@ -1,0 +1,23 @@
+<!-- for angular chart js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/angular.chartjs/0.8.8/angular-chart.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/angular.chartjs/0.8.8/angular-chart.min.css">
+<script src="js/dashboard/summary.js"></script>
+<div ng-controller="PieCtrl">
+    <div class="container-fluid">
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <canvas id="agePie" class="chart chart-pie"
+                        chart-data="ageData" chart-labels="ageLabels" chart-options="options" chart-legend="true">
+                </canvas>
+            </div>
+            <div class="col-md-6">
+                <canvas id="requestPie" class="chart chart-pie"
+                        chart-data="requestData" chart-labels="requestLabels" chart-options="options" chart-legend="true">
+                </canvas>
+            </div>
+        </div>
+    </div>
+</div>
