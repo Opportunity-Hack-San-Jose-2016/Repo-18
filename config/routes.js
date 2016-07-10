@@ -31,10 +31,6 @@ module.exports = function (app, passport) {
   // UI test Ming
   app.get('/test',function(req,res){
     res.render('dashboard/index.html',temp.adminMainTemp("Dashboard",{},{}));
-
-    // res.render('driver_truck/createDriver.html',temp.adminMainTemp("Create A Driver",{user:req.session.user}));
-    //res.render('dashboard/index.html',temp.adminMainTemp("Dashboard",{},{}));
-    //return {layout:"template/main_template.html", title:title,user:user, data:data}
   });
   // user routes
   app.get('/login', users.login);
