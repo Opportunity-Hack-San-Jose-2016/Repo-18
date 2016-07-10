@@ -3,18 +3,58 @@
 <script src="https://cdn.jsdelivr.net/angular.chartjs/0.8.8/angular-chart.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/angular.chartjs/0.8.8/angular-chart.min.css">
 <script src="js/dashboard/summary.js"></script>
+<link href="css/dashboard-summary.css" rel="stylesheet">
+
 <div ng-controller="PieCtrl">
     <div class="container-fluid">
         <div class="row">
+            <div class="sectiontitle">
+                <h2>Request Summary</h2>
+                <span class="headerLine"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div id="projectFacts" class="sectionClass">
+                <div class="fullWidth six columns">
+                    <div class="projectFactsWrap ">
+                        <div class="item wow fadeInUpBig animated animated" style="visibility: visible;">
+                            <i class="fa fa-bell-o"></i>
+                            <p id="number1" class="number"></p>
+                            <span></span>
+                            <p>newly added today</p>
+                        </div>
+                        <div class="item wow fadeInUpBig animated animated" style="visibility: visible;">
+                            <i class="fa fa-calendar-o"></i>
+                            <p id="number2" class="number"></p>
+                            <span></span>
+                            <p>total ongoing</p>
+                        </div>
+                        <div class="item wow fadeInUpBig animated animated" style="visibility: visible;">
+                            <i class="fa fa-check-square-o"></i>
+                            <p id="number3" class="number"></p>
+                            <span></span>
+                            <p>done in past week</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <canvas id="agePie" class="chart chart-pie"
+                <div class="sectiontitle" style="margin-top:15px">
+                    <h2>Refugees</h2>
+                    <span class="headerLine"></span>
+                </div>
+                <canvas id="agePie" style="margin-top: 20px" class="chart chart-pie"
                         chart-data="ageData" chart-labels="ageLabels" chart-options="options" chart-legend="true">
                 </canvas>
             </div>
             <div class="col-md-6">
-                <canvas id="requestPie" class="chart chart-pie"
+                <div class="sectiontitle" style="margin-top:15px">
+                    <h2>Request Type</h2>
+                    <span class="headerLine"></span>
+                </div>
+                <canvas id="requestPie" style="margin-top: 20px" class="chart chart-pie"
                         chart-data="requestData" chart-labels="requestLabels" chart-options="options" chart-legend="true">
                 </canvas>
             </div>

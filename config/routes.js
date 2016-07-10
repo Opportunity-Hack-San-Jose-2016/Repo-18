@@ -39,6 +39,12 @@ module.exports = function (app, passport) {
     app.get('/summary', function (req, res) {
         res.render('dashboard/summary.html', temp.adminMainTemp("Dashboard", {}, {}));
     });
+    app.get('/map', function (req, res) {
+        res.render('dashboard/map.html', temp.adminMainTemp("Dashboard", {}, {}));
+    });
+    app.get('/refugee', function (req, res) {
+        res.render('dashboard/refugee.html', temp.adminMainTemp("Dashboard", {}, {}));
+    });
     // user routes
     app.get('/login', users.login);
     app.get('/signup', users.signup);
