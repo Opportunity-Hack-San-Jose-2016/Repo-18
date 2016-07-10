@@ -92,12 +92,15 @@ app.controller('poleCtrl', ['$scope','$http','NgTableParams',function($scope,$ht
         }
         $scope.poles = array;
         $scope.poleTable.reload();
+        $scope.postCreatePoleCodes(function(){
+
+        });
         if(array.length>0) {
             $scope.showLoader = true;
             $scope.generatePDFS();
         }
     };
-    $scope.postCreatePoleCodes = function(){
+    $scope.postCreatePoleCodes = function(callback){
         var array = [];
         for(var i = $scope.codeStart; i<=$scope.amount; i++){
             array.push($scope.codePrefix+ $scope.formatNum(i,5))
@@ -107,9 +110,11 @@ app.controller('poleCtrl', ['$scope','$http','NgTableParams',function($scope,$ht
             url: '/api/batchCreatePoleCodes',
             data:{poleCodes:array},
         }).then(function successCallback(response) {
+            callback();
             $scope.alert = "finished";
             // $scope.queryDrivers();
         }, function errorCallback(response) {
+            callback();
             // alert("The username or password is not correct, please try again.");
             //$scope.alert = response.data.msg;
         });
