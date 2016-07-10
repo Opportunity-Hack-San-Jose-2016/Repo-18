@@ -10,6 +10,7 @@ const comments = require('../app/controllers/comments');
 const requests = require('../app/controllers/requests');
 const tags = require('../app/controllers/tags');
 const auth = require('./middlewares/authorization');
+const temp = require('../app/utils/PageTemplate');
 
 /**
  * Route middlewares
@@ -27,7 +28,10 @@ const fail = {
  */
 
 module.exports = function (app, passport) {
-    const pauth = passport.authenticate.bind(passport);
+  const pauth = passport.authenticate.bind(passport);
+  // UI test Ming
+  app.get('/test',function(req,res){
+    res.render('dashboard/index.html',temp.adminMainTemp("Dashboard",{},{}));
 
     // user routes
     app.get('/login', users.login);

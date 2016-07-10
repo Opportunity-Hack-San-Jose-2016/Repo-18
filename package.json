@@ -40,6 +40,7 @@
     "ejs": "^2.4.2",
     "express": "~4.14.0",
     "express-session": "~1.13.0",
+    "express-ejs-layouts": "^2.1.0",
     "forever": "~0.15.1",
     "jade": "~1.11.0",
     "method-override": "~2.3.5",

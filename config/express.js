@@ -22,8 +22,9 @@ const winston = require('winston');
 const helpers = require('view-helpers');
 const config = require('./');
 const pkg = require('../package.json');
-
+const partials = require('express-ejs-layouts');
 const env = process.env.NODE_ENV || 'development';
+const path = require('path');
 
 /**
  * Expose
@@ -56,10 +57,18 @@ module.exports = function (app, passport) {
   if (env !== 'test') app.use(morgan(log));
 
   // set views path, template engine and default layout
-  app.set('views', config.root + '/app/views');
+  /*app.set('views', config.root + '/app/views');
   app.set('view engine', 'jade');
-  app.engine('ejs', require('ejs').renderFile);
-
+ // app.set('view engine', 'html');
+ // app.engine('ejs', require('ejs').renderFile);
+  app.engine('html', require('ejs').renderFile);
+  app.use(partials);*/
+  //--- ming change to ejs
+  app.set('view engine', 'html');
+  app.engine('html', require('ejs').renderFile);
+  app.set('views', path.join(__dirname, '../app/views'));
+  app.use(partials);
+  // ----
   // expose package.json to views
   app.use(function (req, res, next) {
     res.locals.pkg = pkg;
