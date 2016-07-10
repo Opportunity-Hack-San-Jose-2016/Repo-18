@@ -16,6 +16,7 @@ exports.seartch = function (req){
 };
 
 exports.doCreate = function (req) {
+    console.log("-----------------");
     log.req(req);
     var poleCodes = req.body.poleCodes;
     var array = [];
