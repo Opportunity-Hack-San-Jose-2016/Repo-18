@@ -38,3 +38,10 @@ angular.module('aHandModule', [])
     });
 
 //module.exports = app;
+
+var refugee = angular.module('aHandRefugeeApp', []);
+
+refugee.controller('commonRefugeeCtrl', ['$scope','$http',function($scope,$http) {
+    $scope.test="this is a testing msg from commonCtrl!refugee";
+
+}]);

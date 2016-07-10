@@ -1,0 +1,55 @@
+<script src="js/refugee/selfupdate.js"></script>
+
+<div class="container" ng-controller="refugeeFormController">
+    <div class = "col-sm-8">
+        <!--form -->
+        <form role="form" name="refugeeForm" ng-submit="submitForm()">
+            <div class="form-group">
+                <label>UNID</label>
+                <input type="text" class="form-control" ng-model="formData.unid" name="unid" placeholder="unid">
+                <!--<span ng-show="errorUNID">{{errorUNID}}</span>-->
+            </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="formData.name" name="name" placeholder="name" />
+            </div>
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" class="form-control" ng-model="formData.firstName" name="firstName" placeholder="firstName" />
+            </div>
+            <div class="form-group">
+                <label>Middle Name</label>
+                <input type="text" class="form-control" ng-model="formData.middleName" name="middleName" placeholder="middleName" />
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" class="form-control" ng-model="formData.lastNname" name="lastName" placeholder="lastName" />
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="form-control" ng-model="formData.address" name="address" placeholder="address" />
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" class="form-control" ng-model="formData.phoneNum" name="phoneNum" placeholder="phoneNum" />
+            </div>
+            <div class="form-group">
+                <label>Family ID</label>
+                <input type="text" class="form-control" ng-model="formData.familyId" name="familyId" placeholder="familyId" />
+            </div>
+            <div class="form-group">
+                <label>Age</label>
+                <input type="text" class="form-control" ng-model="formData.age" name="age" placeholder="age" />
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <input type="text" class="form-control" ng-model="formData.gender" name="gender" placeholder="gender" />
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

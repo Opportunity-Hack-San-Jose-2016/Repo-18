@@ -9,3 +9,6 @@ exports.indexTemp = function(title,user,data){
 exports.adminMainTemp = function(title,user,data){
     return {layout:"template/admin_main_frame.html",title:title,user:user,data:data}
 };
+exports.refugeeMainTemp = function(title,user,data){
+    return{layout:"template/refugee_frame.html", title:title, user: user, data:data}
+};
