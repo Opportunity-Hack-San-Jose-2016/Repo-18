@@ -15,7 +15,7 @@ function doCreate(req) {
 function doUpdate(req) {
     log.req(req);
     // validate
-    var form = util.copy(req.body, {poleCode: 1, lat: 1, lng: 1, state: 1});
+    var form = util.copy(req.body, {poleCode: 1, lat: 1, long: 1, state: 1});
     form.date = new Date();
     if (form.poleCode) {
         form.poleCode = form.poleCode.toLowerCase().trim();
