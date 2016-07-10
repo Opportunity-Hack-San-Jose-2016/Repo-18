@@ -9,6 +9,7 @@ const articles = require('../app/controllers/articles');
 const comments = require('../app/controllers/comments');
 const requests = require('../app/controllers/requests');
 const refugees = require('../app/controllers/refugees');
+const organizations = require('../app/controllers/organizations');
 const poles = require('../app/controllers/poles');
 const tags = require('../app/controllers/tags');
 const auth = require('./middlewares/authorization');
@@ -112,6 +113,10 @@ module.exports = function (app, passport) {
     app.post('/api/refugees', refugees.createApi);
     // localhost:3000/api/refugees/list?page=1
     app.post('/api/refugees/list', refugees.listApi);
+    // localhost:3000/api/organizations
+    app.post('/api/organizations', organizations.createApi);
+    // localhost:3000/api/organizations/list?page=1
+    app.post('/api/organizations/list', organizations.listApi);
 
 
     /**

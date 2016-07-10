@@ -12,6 +12,8 @@ function doCreateOrUpdate(req) {
     form.date = new Date();
     if (form.unid) {
         form.unid = form.unid.toLowerCase().trim();
+    }else{
+        return Promise.reject(ERROR.invalidParam('unid'));
     }
     log.v('form is ', form);
     return mongo.get({
@@ -19,7 +21,8 @@ function doCreateOrUpdate(req) {
         state: CONST.REQ_STATE_WAITING
     }, CONST.COLLECTION_REQUEST).spread(function (request) {
         if (request) {
-            form._id = request._id;
+            util.setProperties(request, form);
+            form = request;
         }
         return mongo.put(form, CONST.COLLECTION_REQUEST);
     });

@@ -248,7 +248,8 @@ function Mongo() {
         var where = {$and: []};
         for (var attr in obj) {
             var condition = {};
-            condition[attr] = obj[attr];
+            var id = objectId(obj[attr]);
+            condition[attr] = id ? id : obj[attr];
             where.$and.push(condition);
         }
         return where;
