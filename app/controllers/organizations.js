@@ -65,7 +65,8 @@ function doCreateOrUpdate(req) {
 
 exports.create = function (req, res) {
     doCreateOrUpdate(req).then(function (result) {
-        ERROR.render(res, '');
+        req.flash.info = 'Organization Added';
+        res.redirect('/organization');
     });
 };
 
