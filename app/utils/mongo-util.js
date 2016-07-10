@@ -250,6 +250,9 @@ function Mongo() {
             var condition = {};
             var id = objectId(obj[attr]);
             condition[attr] = id ? id : obj[attr];
+            if (typeof condition[attr]['$gt'] !== 'undefined') {
+                condition[attr]['$gt'] = +condition[attr]['$gt'];
+            }
             where.$and.push(condition);
         }
         return where;

@@ -2,71 +2,80 @@
 
 <div class="container" ng-controller="submitFormController">
     <div class = "col-sm-8 col-sm-offset-3">
-        <div class="page-header"><h1>Add a new refugee:</h1></div>
+        <div class="row">
+            <div class="sectiontitle">
+                <h2>Add new refugee</h2>
+                <span class="headerLine"></span>
+            </div>
+        </div>
         <!--form -->
-        <form name= "refugeeForm" ng-submit="submitForm()">
+        <form role="form" name= "refugeeForm" ng-submit="submitForm()">
             <div class="form-group">
                 <label>UNID</label>
-                <input type="text" ng-model="formData.unid" name="unid" placeholder="unid">
+                <input type="text" class="form-control" ng-model="formData.unid" name="unid" placeholder="unid">
                 <!--<span ng-show="errorUNID">{{errorUNID}}</span>-->
             </div>
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" ng-model="formData.name" name="name" placeholder="name" />
+                <input type="text" class="form-control" ng-model="formData.name" name="name" placeholder="name" />
             </div>
             <div class="form-group">
                 <label>First Name</label>
-                <input type="text" ng-model="formData.firstName" name="firstName" placeholder="firstName" />
+                <input type="text" class="form-control" ng-model="formData.firstName" name="firstName" placeholder="firstName" />
             </div>
             <div class="form-group">
                 <label>Middle Name</label>
-                <input type="text" ng-model="formData.middleName" name="middleName" placeholder="middleName" />
+                <input type="text" class="form-control" ng-model="formData.middleName" name="middleName" placeholder="middleName" />
             </div>
             <div class="form-group">
                 <label>Last Name</label>
-                <input type="text" ng-model="formData.lastNname" name="lastName" placeholder="lastName" />
+                <input type="text" class="form-control" ng-model="formData.lastNname" name="lastName" placeholder="lastName" />
             </div>
             <div class="form-group">
                 <label>Address</label>
-                <input type="text" ng-model="formData.address" name="address" placeholder="address" />
+                <input type="text" class="form-control" ng-model="formData.address" name="address" placeholder="address" />
             </div>
             <div class="form-group">
                 <label>Phone</label>
-                <input type="text" ng-model="formData.phoneNum" name="phoneNum" placeholder="phoneNum" />
+                <input type="text" class="form-control" ng-model="formData.phoneNum" name="phoneNum" placeholder="phoneNum" />
             </div>
             <div class="form-group">
                 <label>Family ID</label>
-                <input type="text" ng-model="formData.familyId" name="familyId" placeholder="familyId" />
+                <input type="text" class="form-control" ng-model="formData.familyId" name="familyId" placeholder="familyId" />
             </div>
             <div class="form-group">
                 <label>Age</label>
-                <input type="text" ng-model="formData.age" name="age" placeholder="age" />
+                <input type="text" class="form-control" ng-model="formData.age" name="age" placeholder="age" />
             </div>
             <div class="form-group">
                 <label>Gender</label>
-                <input type="text" ng-model="formData.gender" name="gender" placeholder="gender" />
+                <input type="text" class="form-control" ng-model="formData.gender" name="gender" placeholder="gender" />
             </div>
             <div class="form-group">
                 <label>Race</label>
-                <input type="text" ng-model="formData.race" name="race" placeholder="race" />
+                <input type="text" class="form-control" ng-model="formData.race" name="race" placeholder="race" />
             </div>
             <div class="form-group">
                 <label>Nationality</label>
-                <input type="text" ng-model="formData.nationality" name="nationality" placeholder="nationality" />
+                <input type="text" class="form-control" ng-model="formData.nationality" name="nationality" placeholder="nationality" />
             </div>
             <div class="form-group">
                 <label>Disabled</label>
-                <input type="text" ng-model="formData.disabled" name="disabled" placeholder="disabled" />
+                <input type="text" class="form-control" ng-model="formData.disabled" name="disabled" placeholder="disabled" />
             </div>
             <div class="form-group">
                 <label>Last Contact Time</label>
-                <input type="text" ng-model="formData.lastContactTime" name="lastContactTime" placeholder="lastContactTime" />
+                <input type="text" class="form-control" ng-model="formData.lastContactTime" name="lastContactTime" placeholder="lastContactTime" />
             </div>
             <div class="form-group">
                 <label>Last Time Location</label>
-                <input type="text" ng-model="formData.lastContactLocation" name="lastContactLocation" placeholder="lastContactLocation" />
+                <input type="text" class="form-control" ng-model="formData.lastContactLocation" name="lastContactLocation" placeholder="lastContactLocation" />
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

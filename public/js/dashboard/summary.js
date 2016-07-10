@@ -3,15 +3,15 @@
  */
 app.controller("PieCtrl", function ($scope) {
 
-    
+
     $scope.ageLabels = ["Male, Age under 10", "Female, Age under 10", "Male, Age 11-20", "Female, Age 11-20", "Male, Age 21-35", "Female, Age 21-35"
-     ,"Male, Age 36-60", "Female, Age 36-60", "Male, Age 60+", "Female, Age 60+"];
+        , "Male, Age 36-60", "Female, Age 36-60", "Male, Age 60+", "Female, Age 60+"];
     $scope.ageData = [300, 500, 100, 980, 32526, 342, 1245, 3573, 234, 2123];
     $scope.requestLabels = ["Health", "Water", "Shelter"];
     $scope.requestData = [200, 400, 122];
-    $scope.number = [30,20,20];
+    $scope.number = [30, 20, 20];
 
-    $( document ).ready(function() {
+    $(document).ready(function () {
         $.fn.jQuerySimpleCounter = function (options) {
             var settings = $.extend({
                 start: 0,
@@ -33,9 +33,12 @@ app.controller("PieCtrl", function ($scope) {
                 complete: settings.complete
             });
         };
-        $('#number1').jQuerySimpleCounter({end: $scope.number[0], duration: 3000});
-        $('#number2').jQuerySimpleCounter({end: $scope.number[1], duration: 3000});
-        $('#number3').jQuerySimpleCounter({end: $scope.number[2], duration: 2000});
+
+        $.get("/api/statistics/summary", function (data) {
+            $('#number1').jQuerySimpleCounter({end: data.new, duration: 3000});
+            $('#number2').jQuerySimpleCounter({end: data.ongoing, duration: 3000});
+            $('#number3').jQuerySimpleCounter({end: data.done, duration: 2000});
+        });
 
 
         /* AUTHOR LINK */

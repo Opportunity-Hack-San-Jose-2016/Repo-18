@@ -74,6 +74,7 @@ exports.updateApi = function (req, res) {
         ERROR.badRequest(res, err);
     });
 };
+<<<<<<< HEAD
 exports.generatePolePDFBatch = function(req,res){
     console.log("getting in");
     var poleCodes = req.body.poleCodes;
@@ -168,5 +169,30 @@ exports.generateBarcodeImg = function(code){
             wstream.end();
             console.log("barcode done");
         }
+=======
+
+
+function doList(req) {
+    log.req(req);
+    var form = util.copy(req.body, ["poleCode", "lat", "long", "state", "address", "placeName", "requests"]);
+    log.v('form = ', form);
+    var where = mongo.toFilter(form);
+
+    return mongo.collection(CONST.COLLECTION_POLE).then(function (collection) {
+        var query = collection.find(where).sort({requests: -1});
+        if (req.query.page) {
+            const skip = CONST.PAGE_SIZE * (req.query.page - 1);
+            query = query.skip(skip).limit(CONST.PAGE_SIZE);
+        }
+        query = query.toArrayAsync();
+        return query;
+    });
+}
+
+exports.listApi = function (req, res) {
+    doList(req).then(function (result) {
+        log.v('result = ', result);
+        ERROR.ok(res, result);
+>>>>>>> master
     });
 };

@@ -12,9 +12,10 @@ function doCreateOrUpdate(req) {
     form.date = new Date();
     if (form.unid) {
         form.unid = form.unid.toLowerCase().trim();
-    }else{
+    } else {
         return Promise.reject(ERROR.invalidParam('unid'));
     }
+    form.state = form.state || CONST.REQ_STATE_WAITING;
     log.v('form is ', form);
     return mongo.get({
         unid: form.unid,
@@ -25,6 +26,18 @@ function doCreateOrUpdate(req) {
             form = request;
         }
         return mongo.put(form, CONST.COLLECTION_REQUEST);
+    }).bind({}).then(function (request) {
+        this.request = request;
+        return mongo.get({poleCode: form.poleCode}, CONST.COLLECTION_POLE);
+    }).spread(function (pole) {
+        if (form.state === CONST.REQ_STATE_WAITING) {
+            pole.requests = pole.requests ? pole.requests + 1 : 1;
+        } else {
+            pole.requests = pole.requests ? pole.requests - 1 : 0;
+        }
+        return mongo.put(pole, CONST.COLLECTION_POLE);
+    }).then(function () {
+        return this.request;
     });
 }
 

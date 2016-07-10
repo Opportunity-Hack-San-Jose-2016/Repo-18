@@ -10,6 +10,7 @@ const comments = require('../app/controllers/comments');
 const requests = require('../app/controllers/requests');
 const refugees = require('../app/controllers/refugees');
 const organizations = require('../app/controllers/organizations');
+const statistics = require('../app/controllers/statistics');
 const poles = require('../app/controllers/poles');
 const tags = require('../app/controllers/tags');
 const auth = require('./middlewares/authorization');
@@ -114,7 +115,9 @@ module.exports = function (app, passport) {
     // localhost:3000/api/requests/list?page=1
     app.post('/api/requests/list', requests.listApi);
     // localhost:3000/api/pole
-    app.post('/api/pole', poles.updateApi);
+    app.post('/api/poles', poles.updateApi);
+    // localhost:3000/api/pole/list?page=1
+    app.post('/api/poles/list', poles.listApi);
     // localhost:3000/api/refugees
     app.post('/api/refugees', refugees.createApi);
     // localhost:3000/api/refugees/list?page=1
@@ -124,6 +127,7 @@ module.exports = function (app, passport) {
     // localhost:3000/api/organizations/list?page=1
     app.post('/api/organizations/list', organizations.listApi);
 
+<<<<<<< HEAD
     //poles(access points) Ming
     app.get('/poles/generate', function (req, res) {
       res.render('pole/generate_code.html', temp.adminMainTemp("Generation", {}, {}));
@@ -136,6 +140,9 @@ module.exports = function (app, passport) {
     app.post('/api/generatePoleCodes',poles.generatePolePDFBatch);
     app.post('/api/batchCreatePoleCodes',poles.doCreate);
     app.post('/api/poleCodesList',poles.doCreate);
+=======
+    app.get('/api/statistics/summary', statistics.getSummary);
+>>>>>>> master
 
     /**
      * Error handling

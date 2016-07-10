@@ -1,7 +1,7 @@
 /**
  * Created by ljtao on 7/10/16.
  */
-app.controller('submitFormController', ['$scope', function($scope, $http) {
+app.controller('submitFormController', ['$scope','$http',function($scope,$http) {
     $scope.formData = {};
 
     $scope.submitForm = function () {
@@ -17,5 +17,4 @@ app.controller('submitFormController', ['$scope', function($scope, $http) {
             }
         })
     }
-
 }]);
