@@ -1,0 +1,46 @@
+<script src="/js/poles/poles.js"></script>
+
+<div class="container-fluid" ng-controller="poleCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">Rule</div>
+        <div class="panel-body">
+
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <label for="codePrefix">Prefix:</label>
+                    <input type="text" class="form-control" id="codePrefix" placeholder="SANJ" ng-model="codePrefix">
+                </div>
+                <div class="form-group">
+                    <label for="codeStart">Start:</label>
+                    <input type="number" class="form-control" id="codeStart" placeholder="00001" ng-model="codeStart">
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input type="number" class="form-control" id="amount" placeholder="50" ng-model="amount"
+                           ng-keypress="generatePreview()" ng-blur="generatePreview()">
+                </div>
+
+                <button type="button" class="btn btn-default" ng-click="preGenerateCode()">Generate</button>
+            </form>
+            <div>
+                <label>Preview:</label>
+                <p>{{previewStart}}-{{previewEnd}}</p>
+            </div>
+{{poleTest}}
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Pre Generation</div>
+        <table ng-table="poleTable" class="table" show-filter="false" elem-ready="">
+            <tr ng-repeat="item in $data">
+                <td title="'PoleCode'" filter="{ poleCode: 'text'}" sortable="'poleCode'">
+                    {{item.poleCode}}</td>
+                <td title="'State'" filter="{ state: 'text'}" sortable="'state'">
+                    {{item.state}}</td>
+            </tr>
+        </table>
+    </div>
+    {{test}}
+    this is content
+    <p>{{dashboardTest}}</p>
+</div>

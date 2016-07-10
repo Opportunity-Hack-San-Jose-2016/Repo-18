@@ -130,7 +130,22 @@ module.exports = function (app, passport) {
     // localhost:3000/api/organizations/list?page=1
     app.post('/api/organizations/list', organizations.listApi);
 
+
+    //poles(access points) Ming
+    app.get('/poles/generate', function (req, res) {
+      res.render('pole/generate_code.html', temp.adminMainTemp("Generation", {}, {}));
+    });
+    app.get('/poles/generateBarcode', poles.generateBarcodeImg);
+    app.get('/poles/generatePolePDFBatch',poles.generatePolePDFBatch);
+    app.get('/poles/posterTemplate',function(req,res){
+        res.render('pole/posterTemplate.html', {layout:"template/blank.html",barcode:"SANJ95270"});
+    });
+    app.post('/api/generatePoleCodes',poles.generatePolePDFBatch);
+    app.post('/api/batchCreatePoleCodes',poles.doCreate);
+    app.post('/api/poleCodesList',poles.doCreate);
+
     app.get('/api/statistics/summary', statistics.getSummary);
+
 
     /**
      * Error handling

@@ -13,6 +13,7 @@ var values = {
     REQ_STATE_ONGOING: 'ongoing',
     REQ_STATE_COMPLETED: 'completed',
     REQ_STATE_FAILED: 'failed',
+    POLE_STATE_INITIAL:'initial',
 
     PAGE_SIZE: 24
 };
