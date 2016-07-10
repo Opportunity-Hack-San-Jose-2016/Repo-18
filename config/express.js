@@ -12,7 +12,7 @@ const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-const csrf = require('csurf');
+// const csrf = require('csurf');
 const cors = require('cors');
 const upload = require('multer')();
 
@@ -104,13 +104,13 @@ module.exports = function (app, passport) {
   app.use(helpers(pkg.name));
 
   if (env !== 'test') {
-    app.use(csrf());
+    // app.use(csrf());
 
     // This could be moved to view-helpers :-)
-    app.use(function (req, res, next) {
-      res.locals.csrf_token = req.csrfToken();
-      next();
-    });
+    // app.use(function (req, res, next) {
+    //   res.locals.csrf_token = req.csrfToken();
+    //   next();
+    // });
   }
 
   if (env === 'development') {

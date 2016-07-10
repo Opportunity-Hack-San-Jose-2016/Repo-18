@@ -1,5 +1,6 @@
 'use strict';
 var log = require('../utils/log');
+const index = require('./index');
 var _ = require('underscore');
 
 var util = {
