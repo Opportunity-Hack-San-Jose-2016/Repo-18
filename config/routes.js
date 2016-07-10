@@ -110,7 +110,10 @@ module.exports = function (app, passport) {
     // localhost:3000/api/refugees/list?page=1
     app.post('/api/refugees/list', refugees.listApi);
 
-
+    //poles(access points) Ming
+    app.get('/poles/generate', function (req, res) {
+      res.render('pole/generate_code.html', temp.adminMainTemp("Generation", {}, {}));
+    });
     /**
      * Error handling
      */

@@ -1,0 +1,46 @@
+<script src="/js/poles/poles.js"></script>
+
+<div class="container-fluid" ng-controller="poleCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">Rule</div>
+        <div class="panel-body">
+
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <label for="prefix">Prefix:</label>
+                    <input type="text" class="form-control" id="prefix" placeholder="SANJ" ng-model="codePrefix">
+                </div>
+                <div class="form-group">
+                    <label for="codeStart">Start:</label>
+                    <input type="number" class="form-control" id="codeStart" placeholder="00001" ng-model="codeStart">
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input type="number" class="form-control" id="amount" placeholder="50" ng-model="amount"
+                           ng-keypress="generatePreview()" ng-blur="generatePreview()">
+                </div>
+
+                <button type="button" class="btn btn-default" ng-click="preGenerateCode()">Generate</button>
+            </form>
+            <div>
+                <label>Preview:</label>
+                <p>{{previewStart}}-{{previewEnd}}</p>
+            </div>
+{{poleTest}}
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Pre Generation</div>
+        <table ng-table="vm.tableParams" class="table" show-filter="true" elem-ready="">
+            <tr ng-repeat="user in $data">
+                <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+                    {{user.name}}</td>
+                <td title="'Age'" filter="{ age: 'number'}" sortable="'age'">
+                    {{user.age}}</td>
+            </tr>
+        </table>
+    </div>
+    {{test}}
+    this is content
+    <p>{{dashboardTest}}</p>
+</div>
