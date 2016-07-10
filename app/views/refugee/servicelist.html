@@ -1,0 +1,12 @@
+<script src="js/refugee/servicelist.js"></script>
+
+<div ng-controller="refugeeServiceCtrl">
+<table ng-table="orgTable" class="table" show-filter="false" elem-ready="">
+    <tr ng-repeat="item in $data">
+        <td title="'organization name'" filter="{ poleCode: 'text'}" sortable="'poleCode'">
+            {{item.name}}</td>
+        <td title="'State'" filter="{ state: 'text'}" sortable="'state'">
+            {{item.state}}</td>
+    </tr>
+</table>
+</div>
