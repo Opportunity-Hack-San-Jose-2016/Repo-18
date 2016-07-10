@@ -115,7 +115,9 @@ module.exports = function (app, passport) {
     // localhost:3000/api/requests/list?page=1
     app.post('/api/requests/list', requests.listApi);
     // localhost:3000/api/pole
-    app.post('/api/pole', poles.updateApi);
+    app.post('/api/poles', poles.updateApi);
+    // localhost:3000/api/pole/list?page=1
+    app.post('/api/poles/list', poles.listApi);
     // localhost:3000/api/refugees
     app.post('/api/refugees', refugees.createApi);
     // localhost:3000/api/refugees/list?page=1

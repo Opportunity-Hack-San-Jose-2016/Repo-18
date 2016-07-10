@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     final int PLACE_PICKER_REQUEST = 1;
     private GoogleApiClient mGoogleApiClient;
     Place place;
-    final String END_POINT = "http://192.168.83.157:3000/api/pole";
+    final String END_POINT = "http://192.168.83.157:3000/api/poles";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
