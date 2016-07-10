@@ -42,6 +42,10 @@ function initMap() {
             map: map,
             icon: image
         });
+        google.maps.event.addListener(marker, 'click', function () {
+            log('marker clicked, pole = ', pole);
+            
+        });
     }
 
 
