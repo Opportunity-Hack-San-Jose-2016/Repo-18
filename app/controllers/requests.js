@@ -2,9 +2,10 @@
 const log = require('../utils/log');
 const util = require('../utils/util');
 const CONST = require('../values/constants');
+const ERROR = require('../values/error');
 const mongo = require('../utils/mongo-util');
 
-function doCreate(req) {
+function doCreateOrUpdate(req) {
     log.req(req);
     // validate
     var form = util.copy(req.body, {unid: 1, poleCode: 1, requestType: 1, state: 1, phoneNum: 1});
@@ -25,14 +26,14 @@ function doCreate(req) {
 }
 
 exports.create = function (req, res) {
-    doCreate(req).then(function (result) {
-        res.render('');
+    doCreateOrUpdate(req).then(function (result) {
+        ERROR.render(res, '');
     });
 };
 
 exports.createApi = function (req, res) {
-    doCreate(req).then(function (result) {
-        res.send(result);
+    doCreateOrUpdate(req).then(function (result) {
+        ERROR.ok(res, result);
     });
 };
 
@@ -54,6 +55,6 @@ function doList(req) {
 
 exports.listApi = function (req, res) {
     doList(req).then(function (result) {
-        res.send(result);
+        ERROR.ok(res, result);
     });
 };

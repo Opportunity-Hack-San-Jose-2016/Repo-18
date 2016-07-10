@@ -8,6 +8,7 @@ const users = require('../app/controllers/users');
 const articles = require('../app/controllers/articles');
 const comments = require('../app/controllers/comments');
 const requests = require('../app/controllers/requests');
+const poles = require('../app/controllers/poles');
 const tags = require('../app/controllers/tags');
 const auth = require('./middlewares/authorization');
 const temp = require('../app/utils/PageTemplate');
@@ -97,11 +98,12 @@ module.exports = function (app, passport) {
     // tag routes
     app.get('/tags/:tag', tags.index);
 
-    // requests
+    // localhost:3000/api/requests
     app.post('/api/requests', requests.createApi);
-
     // localhost:3000/api/requests/list?page=1
     app.post('/api/requests/list', requests.listApi);
+    // localhost:3000/api/pole
+    app.post('/api/pole', poles.updateApi);
 
 
     /**
